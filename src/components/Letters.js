@@ -1,8 +1,10 @@
+// Importing necessary libraries and components
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { guessLetter } from '../redux/actions/gameActions';
 import styled from 'styled-components';
 
+// Creating a styled component for the container that wraps the letters
 const LettersContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -25,19 +27,25 @@ const LettersContainer = styled.div`
   }
 `;
 
+// Functional component that represents the letter selection buttons
 const Letters = () => {
+  // Array of alphabet letters
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  // Using useSelector to extract guessed letters from the Redux store
   const guessedLetters = useSelector(state => state.guessedLetters);
+  // Using useDispatch to get the dispatch function for dispatching actions
   const dispatch = useDispatch();
 
   return (
+    // Container for the letter buttons
     <LettersContainer>
+      {/* Mapping through the alphabet array to create a button for each letter */}
       {alphabet.map(letter => (
         <button
-          key={letter}
-          onClick={() => dispatch(guessLetter(letter))}
-          className={guessedLetters.includes(letter) ? 'guessed' : ''}
-          disabled={guessedLetters.includes(letter)}
+          key={letter} // Unique key for each button
+          onClick={() => dispatch(guessLetter(letter))} // Dispatching guessLetter action on button click
+          className={guessedLetters.includes(letter) ? 'guessed' : ''} // Adding 'guessed' class if the letter has been guessed
+          disabled={guessedLetters.includes(letter)} // Disabling the button if the letter has been guessed
         >
           {letter}
         </button>
@@ -46,4 +54,5 @@ const Letters = () => {
   );
 };
 
+// Exporting the Letters component as the default export
 export default Letters;
