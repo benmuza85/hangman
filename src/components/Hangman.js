@@ -1,5 +1,8 @@
+// Importing necessary libraries and assets
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
+// Importing images for each stage of the Hangman game
 import stage1 from '../assets/images/state1.GIF';
 import stage2 from '../assets/images/state2.GIF';
 import stage3 from '../assets/images/state3.GIF';
@@ -12,8 +15,10 @@ import stage9 from '../assets/images/state9.GIF';
 import stage10 from '../assets/images/state10.GIF';
 import stage11 from '../assets/images/state11.GIF';
 
+// Array containing all the imported images
 const images = [stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage10, stage11];
 
+// Styled component for the container that wraps the hangman image
 const HangmanContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -25,6 +30,7 @@ const HangmanContainer = styled.div`
   }
 `;
 
+// Styled component for the container that displays the word with guessed letters
 const WordContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -44,8 +50,12 @@ const WordContainer = styled.div`
   }
 `;
 
+// Functional component that represents the Hangman game
 const Hangman = () => {
+  // Using useSelector to extract necessary state properties from the Redux store
   const { wrongGuesses, word, guessedLetters } = useSelector(state => state);
+
+  // Function to render the word with guessed letters
   const renderWord = () =>
     word.split('').map((letter, index) => (
       <div key={index} className={`letter-box ${guessedLetters.includes(letter) ? 'filled' : ''}`}>
@@ -55,12 +65,15 @@ const Hangman = () => {
 
   return (
     <div>
+      {/* Container for the hangman image */}
       <HangmanContainer>
         <img src={images[wrongGuesses]} alt={`Hangman stage ${wrongGuesses}`} />
       </HangmanContainer>
+      {/* Container for the word display */}
       <WordContainer>{renderWord()}</WordContainer>
     </div>
   );
 };
 
+// Exporting the Hangman component as the default export
 export default Hangman;
